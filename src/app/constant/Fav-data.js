@@ -1,5 +1,5 @@
-import Ui from '../asset/image/UI.svg'
-import Robot from '../asset/image/Robot.svg'
+import Ui from '../asset/image/Ui.svg'
+import Robot from '../asset/image/robot.svg'
 import D3 from '../asset/image/3D.svg'
 import color from '../asset/image/color hunt.svg'
 import cartoon from '../asset/image/Cartoon asset.svg'
