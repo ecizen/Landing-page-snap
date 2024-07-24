@@ -16,20 +16,20 @@ export default function Preview() {
             id: 1, iconuser: iconuser, name: 'Acme Inc', like: '1.2K', image: PreviewImage, 
         },
         {
-            id: 1, iconuser: iconuser, name: 'Acme Inc', like: '11.9K', image: PreviewImage2 
+            id: 2, iconuser: iconuser, name: 'Acme Inc', like: '11.9K', image: PreviewImage2 
         },
         {
-            id: 1, iconuser: iconuser, name: 'Acme Inc', like: '4.2K', image: PreviewImage3 
+            id: 3, iconuser: iconuser, name: 'Acme Inc', like: '4.2K', image: PreviewImage3 
         },
         {
-            id: 1, iconuser: iconuser, name: 'Acme Inc', like: '100', image: PreviewImage4 
+            id: 4, iconuser: iconuser, name: 'Acme Inc', like: '100', image: PreviewImage4 
         },
     ]
 
   return (
     <div className='grid lg:grid-cols-4 grid-cols-1 lg:gap-4'>
         {Preview.map((preview) => (
-            <div className='w-full bg-white'>
+            <div key={preview.id} className='w-full bg-white'>
                 <a href={preview.id}>
                 <Image src={preview.image} alt='preview' className='w-full h-40 object-cover hover:brightness-50 transition-all duration-300 ease-in-out' />
                  </a>     

@@ -8,9 +8,6 @@ import Fav from '../component/Fav'
 import Benefit from '../component/Benefit'
 import Testimoni from '../component/Card/Testimoni'
 import InfiniteCard from '../component/Card/InfiniteCard'
-import InfiniteCard2 from '../component/Card/InfiniteCard2'
-
-
 
 
 export default function page() {

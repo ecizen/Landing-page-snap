@@ -10,7 +10,7 @@ export default function Testimoni() {
                 <div className=''>
                     <FontAwesomeIcon icon={faUser} className='text-gray-500' width={20}/>
                 </div>
-                <div data-id="75"><h4 class="font-bold text-black" data-id="76">John Doe</h4><p class="text-gray-500" data-id="77">Designer</p></div>
+                <div data-id="75"><h4 className="font-bold text-black" data-id="76">John Doe</h4><p className="text-gray-500" data-id="77">Designer</p></div>
             </div>
             <div className='mt-4'>
                 <p className='text-gray-400'>"I've been using this platform for years and it's been an invaluable resource for my design work. The selection of assets is incredible, and the quality is top-notch. Highly recommended!"</p>
@@ -21,7 +21,7 @@ export default function Testimoni() {
                 <div className=''>
                     <FontAwesomeIcon icon={faUser} className='text-gray-500' width={20}/>
                 </div>
-                <div data-id="75"><h4 class="font-bold text-black" data-id="76">John Doe</h4><p class="text-gray-500" data-id="77">Designer</p></div>
+                <div data-id="75"><h4 className="font-bold text-black" data-id="76">John Doe</h4><p className="text-gray-500" data-id="77">Designer</p></div>
             </div>
             <div className='mt-4'>
                 <p className='text-gray-400'>"I've been using this platform for years and it's been an invaluable resource for my design work. The selection of assets is incredible, and the quality is top-notch. Highly recommended!"</p>
@@ -32,7 +32,7 @@ export default function Testimoni() {
                 <div className=''>
                     <FontAwesomeIcon icon={faUser} className='text-gray-500' width={20}/>
                 </div>
-                <div data-id="75"><h4 class="font-bold text-black" data-id="76">John Doe</h4><p class="text-gray-500" data-id="77">Designer</p></div>
+                <div data-id="75"><h4 className="font-bold text-black" data-id="76">John Doe</h4><p className="text-gray-500" data-id="77">Designer</p></div>
             </div>
             <div className='mt-4'>
                 <p className='text-gray-400'>"I've been using this platform for years and it's been an invaluable resource for my design work. The selection of assets is incredible, and the quality is top-notch. Highly recommended!"</p>

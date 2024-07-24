@@ -27,7 +27,7 @@ export default function Benefit() {
   return (
     <div className='grid lg:grid-cols-3 grid-cols-1 lg:gap-8 gap-4'>
         {benefits.map((b) =>(
-        <div className='lg:p-6 p-4 lg:border-none border-b border-gray-200'>
+        <div key={b.id} className='lg:p-6 p-4 lg:border-none border-b border-gray-200'>
             <div className='flex gap-3 items-center mb-4'>
               <FontAwesomeIcon icon={b.icon} width={18} className='text-black'/>
               <p className='text-xl font-semibold text-black'>{b.title}</p>

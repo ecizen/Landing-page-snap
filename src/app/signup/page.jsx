@@ -3,47 +3,47 @@
 import '../globals.css'
 import { useState, useEffect } from 'react';
 import { auth } from '../../../lib/firebase';
-import { createUserWithEmailAndPassword, sendEmailVerification, signOut, onAuthStateChanged } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification,} from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import gambar from '../asset/image/Image.jpg';
 
 export default function page() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [isVerifying, setIsVerifying] = useState(false);
     const router = useRouter();
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+    const [isVerifying, setIsVerifying] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handlesignIn = async(e) =>{
         e.preventDefault();
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            await sendEmailVerification(userCredential.user);
+        try{
+            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+            await sendEmailVerification(userCredentials.user);
             setMessage('Verification email sent. Please check your inbox.');
             setIsVerifying(true);
-        } catch (error) {
+        } catch(error){
             setMessage(error.message);
         }
-    };
-    useEffect(() => {
-        let interval;
-        if (isVerifying) {
-            interval = setInterval(async () => {
-                const user = auth.currentUser;
-                if (user) {
-                    await user.reload();
-                    if (user.emailVerified) {
-                        clearInterval(interval);
-                        setMessage('Email verified successfully. Redirecting...');
-                        router.push('/');
-                    }
-                }
-            }, 3000); 
-        }
-        return () => clearInterval(interval);
-    }, [isVerifying, router]);
+    }
 
+    // bagian redirect ke halaman tertentu jika berhasil
+    useEffect(() =>{
+        let interval;
+        if(isVerifying){
+            interval = setInterval(async() =>{
+                const user = auth.currentUser;
+                if(user){
+                    await user.reload();
+                    if(user.emailVerified){
+                        clearInterval(interval);
+                        setMessage("Verification email verified successfully.");
+                        router.push('/home')
+                    }  
+                }
+            })
+        }
+    })
     return (
         <main className="h-screen bg-white grid lg:grid-cols-2 grid-cols-1">
             <div className="bg-red-200 lg:block md:hidden hidden max-h-screen">
@@ -54,12 +54,12 @@ export default function page() {
                 <p className="text-sm text-black font-medium text-center mt-2">Or
                     <a href="/signup" className="text-blue-500 hover:underline ease-out transition-all duration-300"> register for a new account</a>
                 </p>
-                <form onSubmit={handleSubmit} className="mt-6">
+                <form onSubmit={handlesignIn}  className="mt-6">
                     <div className="mb-6">
-                        <input name="email" id="email" type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email Address" className="px-4 text-sm text-black w-full h-10 border border-gray-300 rounded-md" />
+                        <input name="email" id="email" type='email' value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Email Address" className="px-4 text-sm text-black w-full h-10 border border-gray-300 rounded-md" />
                     </div>
                     <div className="mb-4">
-                        <input name="password" id="password" type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="px-4 text-sm text-black w-full h-10 border border-gray-300 rounded-md" />
+                        <input name="password" id="password" type='password' value={password} onChange={(e) => setPassword(e.target.value)}  placeholder="Password" className="px-4 text-sm text-black w-full h-10 border border-gray-300 rounded-md" />
                     </div>
                     <div className="mb- flex justify-between items-center mb-4">
                         <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export default function page() {
                         <button className="text-black font-semibold text-sm w-full h-10 border border-gray-200 rounded-md hover:bg-gray-100 hover:border-none transition-all duration-300 ease-in-out">Sign in with Google</button>
                     </div>
                 </form>
-                {message && <p className="text-center text-green-500 mt-4">{message}</p>}
+                {message && <p className='text-center text-md font-bold text-green-500 mt-4'>{message}</p>}
             </div>
         </main>
     );

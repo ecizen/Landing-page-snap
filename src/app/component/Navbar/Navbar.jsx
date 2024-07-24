@@ -1,23 +1,35 @@
 'use client'
 import React,{useState, useEffect} from 'react'
+import {onAuthStateChanged, getAuth } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import 'firebase/app'
+import ProfileModal from './ProfileModal';
+import app from '../../../../lib/firebase'
+import Image from 'next/image';
 
 export default function Navbar() {
    const [isScrolled, setIsScrolled] = useState(false);
+   const [showProfile, setProfile] = useState(false)
+   const [user, setUser] = useState(null);
+   const auth = getAuth(app);
+   const router =  useRouter()
+
+   const handleShow = () =>{
+     setProfile(!showProfile)
+   }
 
    useEffect(() => {
-      const handleScroll = () => {
-        if (window.scrollY > 0) {
-          setIsScrolled(true);
-        } else {
-          setIsScrolled(false);
-        }
-      };
+    const unsubscribe = onAuthStateChanged(auth, (user) =>{
+      if (user){
+        setUser(user);
+        console.log('User is unsubscribed', user)
+      } else {
+        router.push('/signin')
+    }
+  });
 
-      window.addEventListener('scroll', handleScroll);
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, []);
+  return () => unsubscribe();
+  }, [auth, user]);
 
   const Item = [
     {id: 1, label: 'Home', href: '/' },
@@ -40,7 +52,22 @@ export default function Navbar() {
         ))}
       </ul>
       <div>
-         <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>Get Started</button>
+        {!user ? (
+          <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>Get Started</button>       
+        ) : (
+          <div>
+          <div onClick={handleShow}  className='flex gap-2 items-center px-2 py-2 hover:bg-[#EEECFF] hover:border rounded-md hover:border-[#5D50C6] group cursor-pointer transition-all ease-in-out duration-300'>
+            <div className='border-3 border-pink-300 rounded-full'>
+                <Image src={user.photoURL} alt="User Avatar" width={30} height={30} className='rounded-full' />
+            </div>
+            <p className='md:flex  hidden text-sm font-bold text-black group-hover:text-[#5D50C6]'>{user.displayName}</p>
+        </div>
+        <div className={` ${showProfile ? 'flex' : 'hidden'}`}>
+           <ProfileModal />
+        </div>
+          </div>
+       
+        )}
       </div>
    </div>
   )
